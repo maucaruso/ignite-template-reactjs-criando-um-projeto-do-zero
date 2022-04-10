@@ -4,6 +4,7 @@ import Prismic from 'prismic-javascript';
 import { RichText } from 'prismic-dom';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { FiCalendar, FiUser, FiClock } from 'react-icons/fi';
 
 import { getPrismicClient } from '../../services/prismic';
 
@@ -81,9 +82,15 @@ export default function Post({ post }: PostProps): JSX.Element {
         <h1>{post.data.title}</h1>
 
         <div className={styles.postDetails}>
-          <time>{formatDate(post.first_publication_date)}</time>
-          <address>{post.data.author}</address>
-          <span>{calcEstimated(post.data.content)}</span>
+          <time>
+            <FiCalendar /> {formatDate(post.first_publication_date)}
+          </time>
+          <address>
+            <FiUser /> {post.data.author}
+          </address>
+          <span>
+            <FiClock /> {calcEstimated(post.data.content)}
+          </span>
         </div>
 
         <div className={styles.postContent}>
