@@ -5,6 +5,7 @@ import Prismic from 'prismic-javascript';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { useState } from 'react';
+import { FiCalendar, FiUser } from 'react-icons/fi';
 
 import { getPrismicClient } from '../services/prismic';
 
@@ -53,8 +54,6 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
       };
     });
 
-    console.log(paginationResults);
-
     setPosts([...posts, ...newPostList]);
     setNextPage(paginationResults.next_page);
   }
@@ -69,7 +68,7 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
         <title>Home | Spacetraveling</title>
       </Head>
 
-      <main className={styles.container}>
+      <main className={commonStyles.wrapper}>
         <div className={styles.posts}>
           {posts.map(post => (
             <article className={styles.article} key={post.uid}>
@@ -78,8 +77,12 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
                   <h2>{post.data.title}</h2>
                   <h3>{post.data.subtitle}</h3>
                   <div>
-                    <time>{formatDate(post.first_publication_date)}</time>
-                    <address>{post.data.author}</address>
+                    <time>
+                      <FiCalendar /> {formatDate(post.first_publication_date)}
+                    </time>
+                    <address>
+                      <FiUser /> {post.data.author}
+                    </address>
                   </div>
                 </a>
               </Link>
